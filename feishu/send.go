@@ -1,29 +1,28 @@
 /**
  * @Author:      leafney
- * @Date:        2022-10-09 10:03
+ * @Date:        2022-10-09 11:19
  * @Project:     rose-notice
  * @HomePage:    https://github.com/leafney
  * @Description:
  */
 
-package dingtalk
+package feishu
 
 import (
 	"bytes"
-	"crypto/hmac"
-	"crypto/sha256"
-	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
+	"path"
 )
 
 type Response struct {
-	ErrCode int    `json:"errcode"`
-	ErrMsg  string `json:"errmsg"`
+	Code          int    `json:"code"`
+	Msg           string `json:"msg"`
+	StatusCode    int    `json:"StatusCode"`
+	StatusMessage string `json:"StatusMessage"`
 }
 
 func (r *Robot) send(msg interface{}) error {
@@ -33,22 +32,19 @@ func (r *Robot) send(msg interface{}) error {
 	}
 
 	webURL := r.baseUrl
-	value := url.Values{}
-	value.Set("access_token", r.token)
 
-	if len(r.secret) > 0 {
-		timestamp := fmt.Sprintf("%d", time.Now().UnixMilli())
-		signMsg := fmt.Sprintf("%s\n%s", timestamp, r.secret)
-		value.Set("timestamp", timestamp)
-		value.Set("sign", sign(signMsg, r.secret))
+	u, err := url.Parse(webURL)
+	if err != nil {
+		return err
 	}
+	u.Path = path.Join(u.Path, r.token)
+	webURL = u.String()
 
 	req, err := http.NewRequest(http.MethodPost, webURL, bytes.NewReader(m))
 	if err != nil {
 		return err
 	}
 
-	req.URL.RawQuery = value.Encode()
 	req.Header.Set("Content-Type", "application/json; charset=utf-8")
 	client := http.Client{}
 	resp, err := client.Do(req)
@@ -67,15 +63,10 @@ func (r *Robot) send(msg interface{}) error {
 	if err != nil {
 		return err
 	}
-	if dr.ErrCode != 0 {
-		return fmt.Errorf("dingtalk notice send failed: [%v]", dr.ErrMsg)
+
+	if dr.StatusCode != 0 || dr.Code != 0 {
+		return fmt.Errorf("feishu notice send failed: [%v]", dr.Msg)
 	}
 
 	return nil
-}
-
-func sign(message, secret string) string {
-	hmac256 := hmac.New(sha256.New, []byte(secret))
-	hmac256.Write([]byte(message))
-	return base64.StdEncoding.EncodeToString(hmac256.Sum(nil))
 }
