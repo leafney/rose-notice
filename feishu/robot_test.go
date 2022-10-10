@@ -1,7 +1,7 @@
 /**
  * @Author:      leafney
  * @Date:        2022-10-09 11:18
- * @Project:     rose-notice
+ * @Project:     rose-notify
  * @HomePage:    https://github.com/leafney
  * @Description:
  */

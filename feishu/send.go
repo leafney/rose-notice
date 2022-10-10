@@ -1,7 +1,7 @@
 /**
  * @Author:      leafney
  * @Date:        2022-10-09 11:19
- * @Project:     rose-notice
+ * @Project:     rose-notify
  * @HomePage:    https://github.com/leafney
  * @Description:
  */
@@ -12,7 +12,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/leafney/rose-notice/utils"
+	"github.com/leafney/rose-notify/utils"
 	"io/ioutil"
 	"net/http"
 )
@@ -62,7 +62,7 @@ func (r *Robot) send(msg interface{}) error {
 	}
 
 	if dr.StatusCode != 0 || dr.Code != 0 {
-		return fmt.Errorf("feishu notice send failed: [%v]", dr.Msg)
+		return fmt.Errorf("feishu notification send failed: [%v]", dr.Msg)
 	}
 
 	return nil

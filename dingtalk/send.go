@@ -1,7 +1,7 @@
 /**
  * @Author:      leafney
  * @Date:        2022-10-09 10:03
- * @Project:     rose-notice
+ * @Project:     rose-notify
  * @HomePage:    https://github.com/leafney
  * @Description:
  */
@@ -68,7 +68,7 @@ func (r *Robot) send(msg interface{}) error {
 		return err
 	}
 	if dr.ErrCode != 0 {
-		return fmt.Errorf("dingtalk notice send failed: [%v]", dr.ErrMsg)
+		return fmt.Errorf("dingtalk notification send failed: [%v]", dr.ErrMsg)
 	}
 
 	return nil

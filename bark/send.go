@@ -1,7 +1,7 @@
 /**
  * @Author:      leafney
  * @Date:        2022-10-09 19:32
- * @Project:     rose-notice
+ * @Project:     rose-notify
  * @HomePage:    https://github.com/leafney
  * @Description:
  */
@@ -12,7 +12,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/leafney/rose-notice/utils"
+	"github.com/leafney/rose-notify/utils"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -116,7 +116,7 @@ func (r *Robot) send(title, body string) error {
 		return err
 	}
 	if dr.Code != 200 {
-		return fmt.Errorf("bark notice send failed: [%v]", dr.Message)
+		return fmt.Errorf("bark notification send failed: [%v]", dr.Message)
 	}
 
 	return nil
