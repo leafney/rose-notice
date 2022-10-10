@@ -66,7 +66,8 @@ func NewRobot(token string) Roboter {
 }
 
 func sign(message string) string {
+	var data []byte
 	hmac256 := hmac.New(sha256.New, []byte(message))
-	hmac256.Write([]byte(""))
+	hmac256.Write(data)
 	return base64.StdEncoding.EncodeToString(hmac256.Sum(nil))
 }

@@ -12,10 +12,9 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/leafney/rose-notice/utils"
 	"io/ioutil"
 	"net/http"
-	"net/url"
-	"path"
 )
 
 type Response struct {
@@ -33,12 +32,10 @@ func (r *Robot) send(msg interface{}) error {
 
 	webURL := r.baseUrl
 
-	u, err := url.Parse(webURL)
+	webURL, err = utils.JoinPath(webURL, r.token)
 	if err != nil {
 		return err
 	}
-	u.Path = path.Join(u.Path, r.token)
-	webURL = u.String()
 
 	req, err := http.NewRequest(http.MethodPost, webURL, bytes.NewReader(m))
 	if err != nil {
