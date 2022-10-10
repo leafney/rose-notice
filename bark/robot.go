@@ -9,6 +9,7 @@
 package bark
 
 type Roboter interface {
+	SetHost(host string)
 	SetKey(key string)
 
 	SendMsg(title, body string) error
@@ -43,7 +44,16 @@ func (r *Robot) SetKey(key string) {
 	r.key = key
 }
 
-func NewRobot(host, key string) *Robot {
+func (r *Robot) SetHost(host string) {
+	r.host = host
+}
+
+// NewRobot host default is `https://api.day.app`
+func NewRobot(key, host string) *Robot {
+	if len(host) == 0 {
+		host = "https://api.day.app"
+	}
+
 	return &Robot{
 		host: host,
 		key:  key,

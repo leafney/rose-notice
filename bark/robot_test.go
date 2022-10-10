@@ -12,7 +12,8 @@ import "testing"
 
 func TestNewRobot(t *testing.T) {
 
-	bot := NewRobot("https://api.day.app", "")
+	bot := NewRobot("", "https://api.day.app")
+	//bot.SetHost("") // reset host
 	//bot.SetKey("") // reset key
 	err := bot.
 		SetGroup("test").
