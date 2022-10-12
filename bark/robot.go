@@ -12,8 +12,8 @@ type Roboter interface {
 	SetHost(host string)
 	SetKey(key string)
 
-	SendMsg(title, body string) error
 	SendText(text string) error
+	SendMsg(title, body string) error
 }
 
 type Robot struct {
@@ -32,12 +32,12 @@ type Robot struct {
 	badge     int64
 }
 
-func (r *Robot) SendMsg(title, body string) error {
-	return r.send(title, body)
-}
-
 func (r *Robot) SendText(text string) error {
 	return r.send("", text)
+}
+
+func (r *Robot) SendMsg(title, body string) error {
+	return r.send(title, body)
 }
 
 func (r *Robot) SetKey(key string) {
@@ -117,6 +117,12 @@ func (r *Robot) SetLevel(level int) *Robot {
 
 func (r *Robot) SetSound(soundName string) *Robot {
 	r.soundName = soundName
+	return r
+}
+
+// SetSilence mute the sounds
+func (r *Robot) SetSilence() *Robot {
+	r.soundName = SoundSilence
 	return r
 }
 

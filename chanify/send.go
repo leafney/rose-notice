@@ -1,16 +1,17 @@
 /**
  * @Author:      leafney
- * @Date:        2022-10-09 19:32
+ * @Date:        2022-10-12 12:29
  * @Project:     rose-notify
  * @HomePage:    https://github.com/leafney
  * @Description:
  */
 
-package bark
+package chanify
 
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/leafney/rose-notify/utils"
 	"io"
@@ -20,57 +21,66 @@ import (
 )
 
 type Response struct {
-	Code      int    `json:"code"`
-	Message   string `json:"message"`
-	Timestamp int64  `json:"timestamp"`
+	Res        int    `json:"res"`
+	Message    string `json:"msg"`
+	RequestUid string `json:"request-uid"`
 }
 
-func (r *Robot) send(title, body string) error {
+func (r *Robot) send(title, body, urlPath string) error {
 
-	msg := map[string]string{
-		"title":      title,
-		"body":       body,
-		"device_key": r.key,
+	if r.isText && !utils.IsNotEmpty(body) {
+		return errors.New("body can not empty")
+	}
+	// when link empty the body can not empty
+	if r.isLink && !utils.IsNotEmpty(urlPath) {
+		return errors.New("link can not empty")
 	}
 
-	if utils.IsNotEmpty(r.group) {
-		msg["group"] = r.group
+	msg := map[string]string{}
+
+	if r.isText {
+		msg["text"] = body
 	}
+
+	if r.isLink {
+		msg["link"] = urlPath
+	}
+
+	if utils.IsNotEmpty(title) {
+		msg["title"] = title
+	}
+
 	if utils.IsNotEmpty(r.copyText) {
 		msg["copy"] = r.copyText
 	}
 	if r.autoCopy {
-		msg["autoCopy"] = "1"
+		msg["autocopy"] = "1"
 	}
-	if utils.IsNotEmpty(r.icon) {
-		msg["icon"] = r.icon
-	}
-	if utils.IsNotEmpty(r.url) {
-		msg["url"] = r.url
-	}
+
 	if utils.IsNotEmpty(r.level) {
-		msg["level"] = r.level
+		msg["interruption-level"] = r.level
 	}
-	if r.isArchive {
-		msg["isArchive"] = "1"
+
+	if r.priority > 0 && r.priority <= 10 {
+		msg["priority"] = utils.IntToStr(r.priority)
 	}
+
 	if utils.IsNotEmpty(r.soundName) {
 		msg["sound"] = r.soundName
 	}
-	if r.badge > 0 {
-		msg["badge"] = utils.Int64ToStr(r.badge)
-	}
 
 	var method = http.MethodPost
-	webURL := r.host
+	webURL, _ := utils.JoinPath(r.host, "v1/sender", r.token)
 	value := url.Values{}
 	var bodyData io.Reader
 
 	if r.isGet {
-		webURL, _ = utils.JoinPath(webURL, r.key, title, body)
+		// method get ,text must in url path
+		webURL, _ = utils.JoinPath(webURL, body)
+
 		method = http.MethodGet
 		for k, v := range msg {
-			if k == "device_key" || k == "title" || k == "body" {
+			if k == "text" {
 				continue
 			}
 			if len(v) == 0 {
@@ -79,12 +89,13 @@ func (r *Robot) send(title, body string) error {
 			value.Set(k, v)
 		}
 	} else {
-		webURL, _ = utils.JoinPath(webURL, "push")
 		m, err := json.Marshal(msg)
 		if err != nil {
 			return err
 		}
 		bodyData = bytes.NewReader(m)
+
+		//fmt.Println(string(m)) // TODO
 	}
 
 	req, err := http.NewRequest(method, webURL, bodyData)
@@ -118,8 +129,8 @@ func (r *Robot) send(title, body string) error {
 	if err != nil {
 		return err
 	}
-	if dr.Code != 200 {
-		return fmt.Errorf("bark notification send failed: [%v]", dr.Message)
+	if dr.Res != 0 {
+		return fmt.Errorf("chanify notification send failed: [%v]", dr.Message)
 	}
 
 	return nil

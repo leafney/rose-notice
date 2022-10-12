@@ -11,6 +11,7 @@ package utils
 import (
 	"net/url"
 	"path"
+	"strconv"
 	"strings"
 )
 
@@ -30,4 +31,12 @@ func JoinPath(basePath string, elem ...string) (string, error) {
 
 func IsNotEmpty(s string) bool {
 	return len(strings.TrimSpace(s)) > 0
+}
+
+func IntToStr(i int) string {
+	return strconv.Itoa(i)
+}
+
+func Int64ToStr(i int64) string {
+	return strconv.FormatInt(i, 10)
 }

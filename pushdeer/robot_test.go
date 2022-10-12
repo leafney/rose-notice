@@ -12,8 +12,8 @@ import "testing"
 
 func TestNewRobot(t *testing.T) {
 	bot := NewRobot("", "")
-	bot.SetHost("") // reset host
-	bot.SetKey("")  // reset key
+	//bot.SetHost("") // reset host
+	//bot.SetKey("")  // reset key
 	err := bot.
 		//SetGet().
 		//SendText("我饿啦，我饿啦")
