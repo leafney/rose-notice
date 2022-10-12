@@ -17,7 +17,7 @@ func TestNewRobot(t *testing.T) {
 	//bot.SetKey("") // reset key
 	err := bot.
 		SetGroup("test").
-		UseGet().
+		//SetGet().
 		//SetBadge(5).
 		//SetLevel(1).
 		//SetSound(SoundBell).

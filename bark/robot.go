@@ -60,7 +60,7 @@ func NewRobot(key, host string) *Robot {
 	}
 }
 
-func (r *Robot) UseGet() *Robot {
+func (r *Robot) SetGet() *Robot {
 	r.isGet = true
 	return r
 }

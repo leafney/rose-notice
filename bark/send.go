@@ -77,7 +77,7 @@ func (r *Robot) send(title, body string) error {
 			value.Set(k, v)
 		}
 	} else {
-		webURL, _ = utils.JoinPath(webURL, r.key)
+		webURL, _ = utils.JoinPath(webURL, "push")
 		m, err := json.Marshal(msg)
 		if err != nil {
 			return err
