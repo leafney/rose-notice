@@ -10,8 +10,8 @@ package dingtalk
 
 // Roboter is the interface implemented by Robot that can send multiple types of messages.
 type Roboter interface {
+	SetHost(url string)
 	SetSecret(secret string)
-	setBaseUrl(url string)
 
 	SendText(content string) error
 	SendTextAt(content string, atMobiles []string, isAtAll bool) error
@@ -25,17 +25,17 @@ type Roboter interface {
 
 // Robot represents a dingtalk custom robot that can send messages to groups.
 type Robot struct {
-	baseUrl string
-	token   string
-	secret  string
+	host   string
+	token  string
+	secret string
 }
 
 func (r *Robot) SetSecret(secret string) {
 	r.secret = secret
 }
 
-func (r *Robot) setBaseUrl(url string) {
-	r.baseUrl = url
+func (r *Robot) SetHost(host string) {
+	r.host = host
 }
 
 func (r *Robot) SendText(content string) error {
@@ -99,7 +99,7 @@ func (r *Robot) SendMarkdownAt(title, text string, atMobiles []string, isAtAll b
 // NewRobot returns a roboter that can send messages.
 func NewRobot(token string) Roboter {
 	return &Robot{
-		baseUrl: "https://oapi.dingtalk.com/robot/send",
-		token:   token,
+		host:  "https://oapi.dingtalk.com/robot/send",
+		token: token,
 	}
 }

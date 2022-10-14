@@ -19,24 +19,24 @@ import (
 // Roboter is the interface implemented by Robot that can send multiple types of messages.
 type Roboter interface {
 	SetSecret(secret string)
-	setBaseUrl(url string)
+	SetHost(host string)
 
 	SendText(text string) error
 }
 
 // Robot represents a feishu custom robot that can send messages.
 type Robot struct {
-	baseUrl string
-	token   string
-	secret  string
+	host   string
+	token  string
+	secret string
 }
 
 func (r *Robot) SetSecret(secret string) {
 	r.secret = secret
 }
 
-func (r *Robot) setBaseUrl(url string) {
-	r.baseUrl = url
+func (r *Robot) SetHost(host string) {
+	r.host = host
 }
 
 func (r *Robot) SendText(text string) error {
@@ -60,8 +60,8 @@ func (r *Robot) SendText(text string) error {
 // NewRobot returns a roboter that can send messages.
 func NewRobot(token string) Roboter {
 	return &Robot{
-		baseUrl: "https://open.feishu.cn/open-apis/bot/v2/hook",
-		token:   token,
+		host:  "https://open.feishu.cn/open-apis/bot/v2/hook",
+		token: token,
 	}
 }
 

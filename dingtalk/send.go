@@ -32,7 +32,7 @@ func (r *Robot) send(msg interface{}) error {
 		return err
 	}
 
-	webURL := r.baseUrl
+	webURL := r.host
 	value := url.Values{}
 	value.Set("access_token", r.token)
 
