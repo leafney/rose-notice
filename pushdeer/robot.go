@@ -8,6 +8,8 @@
 
 package pushdeer
 
+import "github.com/leafney/rose-notify/utils"
+
 type Roboter interface {
 	SetHost(host string)
 	SetKey(key string)
@@ -50,7 +52,7 @@ func (r *Robot) SendMarkdown(title, body string) error {
 
 // NewRobot host default is `https://api2.pushdeer.com`
 func NewRobot(key, host string) *Robot {
-	if len(host) == 0 {
+	if !utils.IsNotEmpty(host) {
 		host = "https://api2.pushdeer.com"
 	}
 

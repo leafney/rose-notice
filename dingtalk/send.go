@@ -15,6 +15,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"github.com/leafney/rose-notify/utils"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -36,7 +37,7 @@ func (r *Robot) send(msg interface{}) error {
 	value := url.Values{}
 	value.Set("access_token", r.token)
 
-	if len(r.secret) > 0 {
+	if utils.IsNotEmpty(r.secret) {
 		timestamp := fmt.Sprintf("%d", time.Now().UnixMilli())
 		signMsg := fmt.Sprintf("%s\n%s", timestamp, r.secret)
 		value.Set("timestamp", timestamp)

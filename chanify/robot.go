@@ -8,6 +8,8 @@
 
 package chanify
 
+import "github.com/leafney/rose-notify/utils"
+
 type Roboter interface {
 	SetHost(host string)
 	SetToken(token string)
@@ -72,7 +74,7 @@ func (r *Robot) SendLink(link string) error {
 
 // NewRobot host default is `https://api.chanify.net`
 func NewRobot(token, host string) *Robot {
-	if len(host) == 0 {
+	if !utils.IsNotEmpty(host) {
 		host = "https://api.chanify.net"
 	}
 

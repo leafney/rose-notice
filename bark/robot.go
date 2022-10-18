@@ -8,6 +8,8 @@
 
 package bark
 
+import "github.com/leafney/rose-notify/utils"
+
 type Roboter interface {
 	SetHost(host string)
 	SetKey(key string)
@@ -50,7 +52,7 @@ func (r *Robot) SetHost(host string) {
 
 // NewRobot host default is `https://api.day.app`
 func NewRobot(key, host string) *Robot {
-	if len(host) == 0 {
+	if !utils.IsNotEmpty(host) {
 		host = "https://api.day.app"
 	}
 
@@ -82,7 +84,7 @@ func (r *Robot) SetAutoCopy(copy bool) *Robot {
 	return r
 }
 
-// SetIcon
+// SetIcon icon url
 func (r *Robot) SetIcon(icon string) *Robot {
 	r.icon = icon
 	return r

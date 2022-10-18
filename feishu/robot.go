@@ -13,13 +13,14 @@ import (
 	"crypto/sha256"
 	"encoding/base64"
 	"fmt"
+	"github.com/leafney/rose-notify/utils"
 	"time"
 )
 
 // Roboter is the interface implemented by Robot that can send multiple types of messages.
 type Roboter interface {
-	SetSecret(secret string)
 	SetHost(host string)
+	SetSecret(secret string)
 
 	SendText(text string) error
 }
@@ -47,7 +48,7 @@ func (r *Robot) SendText(text string) error {
 		},
 	}
 
-	if len(r.secret) > 0 {
+	if utils.IsNotEmpty(r.secret) {
 		timestamp := fmt.Sprintf("%d", time.Now().Unix())
 		signMsg := fmt.Sprintf("%s\n%s", timestamp, r.secret)
 		params.Timestamp = timestamp
