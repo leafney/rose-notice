@@ -13,6 +13,9 @@ import "testing"
 func TestNewRobot(t *testing.T) {
 	bot := NewRobot("")
 	bot.SetSecret("")
-	err := bot.SendText("消息发送测试")
+
+	err := bot.
+		DebugMode().
+		SendText("消息发送测试")
 	t.Log(err)
 }

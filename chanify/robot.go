@@ -29,6 +29,7 @@ type Robot struct {
 	host  string
 	token string
 	isGet bool
+	debug bool
 
 	isText bool
 	isLink bool
@@ -131,5 +132,10 @@ func (r *Robot) SetSound(soundName string) *Robot {
 // SetDefSound enable default sound
 func (r *Robot) SetDefSound() *Robot {
 	r.soundName = "1"
+	return r
+}
+
+func (r *Robot) DebugMode() *Robot {
+	r.debug = true
 	return r
 }

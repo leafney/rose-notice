@@ -30,6 +30,10 @@ func (r *Robot) send(msg interface{}) error {
 		return err
 	}
 
+	if r.debug {
+		fmt.Printf("[debug] body: [%v] \n", string(m))
+	}
+
 	webURL := r.host
 
 	webURL, err = utils.JoinPath(webURL, r.token)
@@ -43,6 +47,11 @@ func (r *Robot) send(msg interface{}) error {
 	}
 
 	req.Header.Set("Content-Type", "application/json; charset=utf-8")
+
+	if r.debug {
+		fmt.Printf("[debug] url: [%v] \n", req.URL.String())
+	}
+
 	client := http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
@@ -53,6 +62,10 @@ func (r *Robot) send(msg interface{}) error {
 	data, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return err
+	}
+
+	if r.debug {
+		fmt.Printf("[debug] response: [%v] \n", string(data))
 	}
 
 	var dr Response

@@ -54,6 +54,9 @@ func (r *Robot) send(msgType, title, body string) error {
 		if err != nil {
 			return err
 		}
+		if r.debug {
+			fmt.Printf("[debug] body: [%v] \n", string(m))
+		}
 		bodyData = bytes.NewReader(m)
 	}
 
@@ -67,7 +70,10 @@ func (r *Robot) send(msgType, title, body string) error {
 	} else {
 		req.Header.Set("Content-Type", "application/json; charset=utf-8")
 	}
-	//fmt.Println(req.URL.String()) // TODO
+
+	if r.debug {
+		fmt.Printf("[debug] url: [%v] \n", req.URL.String())
+	}
 
 	client := http.Client{}
 	resp, err := client.Do(req)
@@ -81,8 +87,9 @@ func (r *Robot) send(msgType, title, body string) error {
 		return err
 	}
 
-	//fmt.Println(string(data)) // TODO
-
+	if r.debug {
+		fmt.Printf("[debug] response: [%v] \n", string(data))
+	}
 	var dr Response
 	err = json.Unmarshal(data, &dr)
 	if err != nil {

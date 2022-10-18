@@ -30,6 +30,7 @@ type Robot struct {
 	host   string
 	token  string
 	secret string
+	debug  bool
 }
 
 func (r *Robot) SetSecret(secret string) {
@@ -59,11 +60,16 @@ func (r *Robot) SendText(text string) error {
 }
 
 // NewRobot returns a roboter that can send messages.
-func NewRobot(token string) Roboter {
+func NewRobot(token string) *Robot {
 	return &Robot{
 		host:  "https://open.feishu.cn/open-apis/bot/v2/hook",
 		token: token,
 	}
+}
+
+func (r *Robot) DebugMode() *Robot {
+	r.debug = true
+	return r
 }
 
 func sign(message string) string {

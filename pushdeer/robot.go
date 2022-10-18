@@ -24,6 +24,7 @@ type Robot struct {
 	host  string
 	key   string
 	isGet bool
+	debug bool
 }
 
 func (r *Robot) SetHost(host string) {
@@ -64,5 +65,10 @@ func NewRobot(key, host string) *Robot {
 
 func (r *Robot) SetGet() *Robot {
 	r.isGet = true
+	return r
+}
+
+func (r *Robot) DebugMode() *Robot {
+	r.debug = true
 	return r
 }

@@ -22,6 +22,7 @@ type Robot struct {
 	host  string
 	key   string
 	isGet bool
+	debug bool
 
 	group     string
 	copyText  string
@@ -130,5 +131,10 @@ func (r *Robot) SetSilence() *Robot {
 
 func (r *Robot) SetBadge(badge int64) *Robot {
 	r.badge = badge
+	return r
+}
+
+func (r *Robot) DebugMode() *Robot {
+	r.debug = true
 	return r
 }
