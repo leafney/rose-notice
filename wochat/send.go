@@ -1,4 +1,4 @@
-package wowechat
+package wochat
 
 import (
 	"bytes"

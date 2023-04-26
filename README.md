@@ -8,7 +8,7 @@
 
 - [x] Dingtalk
 - [x] Feishu
-- [x] 企业微信
+- [x] WoChat (企业微信)
 - [x] Bark
 - [x] Chanify
 - [x] PushDeer
@@ -20,6 +20,7 @@
 | --- | --- | --- | --- | --- |
 | Dingtalk | ✅ | ❌ | ✅ | ❌ |
 | Feishu | ✅ | ❌ | ✅ | ❌ | 
+| WoChat | ✅ | ❌ | ✅ | ❌ |
 | Bark | ✅ | ✅ | ✅ | ✅ |
 | Chanify | ✅ | ✅ | ✅ | ✅ |
 | PushDeer | ✅ | ✅ | ✅ | ❌ |
@@ -44,9 +45,12 @@
 - `SetSecret(secret string)`
 - `SendText(text string)`
 
-#### WWechat
+#### Wochat (Work Wechat)
 
-- ``
+- `SetHost(host string)`
+- `SetKey(key string)`
+- `SendText(content string) error`
+- `SendMarkdown(text string) error`
 
 #### Bark
 
