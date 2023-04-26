@@ -1,9 +1,14 @@
 # rose-notify
 
+**Webhook-based message notification service**
+
+----
+
 ### Support
 
 - [x] Dingtalk
 - [x] Feishu
+- [x] 企业微信
 - [x] Bark
 - [x] Chanify
 - [x] PushDeer
@@ -38,6 +43,10 @@
 - `SetHost(host string)`
 - `SetSecret(secret string)`
 - `SendText(text string)`
+
+#### WWechat
+
+- ``
 
 #### Bark
 
