@@ -14,16 +14,19 @@
 - [x] PushDeer
 - [ ] 息知
 - [ ] Telegram
+- [x] Slack
 
 
-| method | default host | custom host | set key/token | show title |
-| --- | --- | --- | --- | --- |
+| method   | default host | custom host | set key/token | show title |
+|----------| --- | -- | --- | --- |
 | Dingtalk | ✅ | ❌ | ✅ | ❌ |
-| Feishu | ✅ | ❌ | ✅ | ❌ | 
-| WoChat | ✅ | ❌ | ✅ | ❌ |
-| Bark | ✅ | ✅ | ✅ | ✅ |
-| Chanify | ✅ | ✅ | ✅ | ✅ |
+| Feishu   | ✅ | ❌ | ✅ | ❌ | 
+| WoChat   | ✅ | ❌ | ✅ | ❌ |
+| Bark     | ✅ | ✅ | ✅ | ✅ |
+| Chanify  | ✅ | ✅ | ✅ | ✅ |
 | PushDeer | ✅ | ✅ | ✅ | ❌ |
+| 息知       | ✅ | ❌ | ✅ | ❌ |
+| Slack    | ✅ | ❌ | ✅ | ❌ |
 
 ----
 
@@ -75,5 +78,12 @@
 - `SendMsg(title, body string)`
 - `SendImage(url string)`
 - `SendMarkdown(title, body string)`
+
+----
+
+#### Slack
+
+- `SetHost(host string)`
+- `SendText(text string)`
 
 ----
