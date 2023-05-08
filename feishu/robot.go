@@ -14,34 +14,58 @@ import (
 	"encoding/base64"
 	"fmt"
 	"github.com/leafney/rose-notify/common/utils"
+	"github.com/leafney/rose-notify/common/vars"
+	"github.com/leafney/rose-notify/notice"
 	"time"
 )
 
-// Roboter is the interface implemented by Robot that can send multiple types of messages.
-type Roboter interface {
-	SetHost(host string)
-	SetSecret(secret string)
+//// Roboter is the interface implemented by FeiShu that can send multiple types of messages.
+//type Roboter interface {
+//	SetHost(host string)
+//	SetSecret(secret string)
+//
+//	SendText(text string) error
+//}
 
-	SendText(text string) error
-}
-
-// Robot represents a feishu custom robot that can send messages.
-type Robot struct {
+// FeiShu represents a feishu custom robot that can send messages.
+type FeiShu struct {
 	host   string
 	token  string
 	secret string
 	debug  bool
 }
 
-func (r *Robot) SetSecret(secret string) {
-	r.secret = secret
+func (r *FeiShu) UseHost(url string) notice.Noticer {
+	if utils.IsNotEmpty(url) {
+		r.host = url
+	}
+	return r
 }
 
-func (r *Robot) SetHost(host string) {
-	r.host = host
+func (r *FeiShu) UseToken(token string) notice.Noticer {
+	if utils.IsNotEmpty(token) {
+		r.token = token
+	}
+	return r
 }
 
-func (r *Robot) SendText(text string) error {
+func (r *FeiShu) UseSecret(secret string) notice.Noticer {
+	if utils.IsNotEmpty(secret) {
+		r.secret = secret
+	}
+	return r
+}
+
+func (r *FeiShu) SetDebug(debug bool) notice.Noticer {
+	r.debug = debug
+	return r
+}
+
+func (r *FeiShu) SendText(text string) error {
+	if utils.IsEmpty(text) {
+		return vars.ErrParamEmpty
+	}
+
 	params := &textMessage{
 		MsgType: msgTypeText,
 		Content: textParams{
@@ -59,17 +83,17 @@ func (r *Robot) SendText(text string) error {
 	return r.send(params)
 }
 
-// NewRobot returns a roboter that can send messages.
-func NewRobot(token string) *Robot {
-	return &Robot{
-		host:  "https://open.feishu.cn/open-apis/bot/v2/hook",
-		token: token,
-	}
+// SendMarkdown Not Support
+func (r *FeiShu) SendMarkdown(title, body string) error {
+	return vars.ErrMethodNotSupported
 }
 
-func (r *Robot) DebugMode() *Robot {
-	r.debug = true
-	return r
+// NewFeiShu returns a roboter that can send messages.
+func NewFeiShu(token string) *FeiShu {
+	return &FeiShu{
+		host:  vars.HostFeiShu,
+		token: token,
+	}
 }
 
 func sign(message string) string {

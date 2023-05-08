@@ -24,7 +24,7 @@ type Response struct {
 	StatusMessage string `json:"StatusMessage"`
 }
 
-func (r *Robot) send(msg interface{}) error {
+func (r *FeiShu) send(msg interface{}) error {
 	m, err := json.Marshal(msg)
 	if err != nil {
 		return err

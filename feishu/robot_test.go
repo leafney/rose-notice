@@ -11,11 +11,11 @@ package feishu
 import "testing"
 
 func TestNewRobot(t *testing.T) {
-	bot := NewRobot("")
-	bot.SetSecret("")
+	bot := NewFeiShu("")
+	bot.UseSecret("")
 
 	err := bot.
-		DebugMode().
+		SetDebug(true).
 		SendText("消息发送测试")
 	t.Log(err)
 }
