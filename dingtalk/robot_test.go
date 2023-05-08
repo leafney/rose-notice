@@ -16,15 +16,14 @@ func TestNewRobot(t *testing.T) {
 	// 初始化的设置
 	bot.SetDebug(true).UseSecret("")
 
+	// 调用通用方法
+	//err := bot.SendText("test 你好，这是测试内容")
+
 	// 使用新的token，调用通用的方法
 	//err := bot.UseToken("").SendText("你好呀")
 
 	// 调用独有的方法
 	//err := bot.SendTextAt("hello", []string{}, true)
-
-	//err := bot.
-	//	SetDebug(true).
-	//	SendText("test 你好，这是测试内容")
 
 	err := bot.
 		SetDebug(true).

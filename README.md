@@ -4,7 +4,7 @@
 
 ----
 
-### Support
+## Support
 
 - [x] Dingtalk
 - [x] Feishu
@@ -30,23 +30,42 @@
 
 ----
 
+## How to use
+
+```go
+func main() {
+	// 初始化
+	bot := NewDingTalk("token")
+	
+	// 链式调用,设置secret
+	bot.SetDebug(true).UseSecret("secret")
+
+	// 调用通用方法
+	err := bot.SendText("Hello World!")
+	
+	// 调用独有的方法
+	err := bot.SendTextAt("hello", []string{}, true)
+
+	// 使用新的token，调用通用的方法
+	err := bot.UseToken("another token").SendText("你好")
+}
+```
+
+----
+
 ### Feature
 
 #### Dingtalk
 
-- `SetHost(url string)`
-- `SetSecret(secret string)`
-- `SendText(content string)`
-- `SendTextAt(content string, atMobiles []string, isAtAll bool)`
-- `SendLink(title, text, messageURL, picURL string)`
-- `SendMarkdown(title, text string)`
-- `SendMarkdownAt(title, text string, atMobiles []string, isAtAll bool)`
+```go
+
+```
 
 #### Feishu
 
-- `SetHost(host string)`
-- `SetSecret(secret string)`
-- `SendText(text string)`
+```go
+
+```
 
 #### Wochat (Work Wechat)
 

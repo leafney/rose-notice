@@ -3,8 +3,9 @@
 - [自定义机器人接入 - 钉钉开放平台](https://open.dingtalk.com/document/robots/custom-robot-access) 
 
 
-## Dingtalk
+## Feature
 
+- `NewDingTalk(token string)`
 - `UseHost(url string)`
 - `UseToken(token string)`
 - `UseSecret(secret string)`
@@ -14,3 +15,5 @@
 - `SendLink(title, text, messageURL, picURL string)`
 - `SendMarkdown(title, body string)`
 - `SendMarkdownAt(title, body string, atMobiles []string, isAtAll bool)`
+
+----
