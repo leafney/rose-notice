@@ -12,7 +12,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/leafney/rose-notify/utils"
+	"github.com/leafney/rose-notify/common/utils"
 	"io/ioutil"
 	"net/http"
 )

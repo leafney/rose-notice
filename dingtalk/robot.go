@@ -8,51 +8,85 @@
 
 package dingtalk
 
-// Roboter is the interface implemented by Robot that can send multiple types of messages.
-type Roboter interface {
-	SetHost(url string)
-	SetSecret(secret string)
+import (
+	"github.com/leafney/rose-notify/common/utils"
+	"github.com/leafney/rose-notify/common/vars"
+	"github.com/leafney/rose-notify/notice"
+)
 
-	SendText(content string) error
-	SendTextAt(content string, atMobiles []string, isAtAll bool) error
-	SendLink(title, text, messageURL, picURL string) error
-	SendMarkdown(title, text string) error
-	SendMarkdownAt(title, text string, atMobiles []string, isAtAll bool) error
-	//SendActionCard(title, text, singleTitle, singleURL, btnOrientation, hideAvatar string) error
-	//SendActionCards(title, text string)error
-	//SendFeedCard(title string)
-}
+//
+//// Roboter is the interface implemented by DingTalk that can send multiple types of messages.
+//type Roboter interface {
+//	UseHost(url string)
+//	UseToken(token string)
+//	UseSecret(secret string)
+//
+//	SendText(content string) error
+//	SendTextAt(content string, atMobiles []string, isAtAll bool) error
+//	SendLink(title, text, messageURL, picURL string) error
+//	SendMarkdown(title, text string) error
+//	SendMarkdownAt(title, text string, atMobiles []string, isAtAll bool) error
+//	//SendActionCard(title, text, singleTitle, singleURL, btnOrientation, hideAvatar string) error
+//	//SendActionCards(title, text string)error
+//	//SendFeedCard(title string)
+//}
 
-// Robot represents a dingtalk custom robot that can send messages to groups.
-type Robot struct {
+// DingTalk represents a dingtalk custom robot that can send messages to groups.
+type DingTalk struct {
 	host   string
 	token  string
 	secret string
 	debug  bool
 }
 
-func (r *Robot) SetSecret(secret string) {
-	r.secret = secret
+func (r *DingTalk) UseHost(url string) notice.Noticer {
+	if utils.IsNotEmpty(url) {
+		r.host = url
+	}
+	return r
 }
 
-func (r *Robot) SetHost(host string) {
-	r.host = host
+func (r *DingTalk) UseToken(token string) notice.Noticer {
+	if utils.IsNotEmpty(token) {
+		r.token = token
+	}
+	return r
 }
 
-func (r *Robot) SendText(content string) error {
+func (r *DingTalk) UseSecret(secret string) notice.Noticer {
+	if utils.IsNotEmpty(secret) {
+		r.secret = secret
+	}
+	return r
+}
+
+func (r *DingTalk) SetDebug(debug bool) notice.Noticer {
+	r.debug = debug
+	return r
+}
+
+func (r *DingTalk) SendText(text string) error {
+	if utils.IsEmpty(text) {
+		return vars.ErrParamEmpty
+	}
+
 	return r.send(&textMessage{
 		MsgType: msgTypeText,
 		Text: textParams{
-			Content: content,
+			Content: text,
 		},
 	})
 }
 
-func (r *Robot) SendTextAt(content string, atMobiles []string, isAtAll bool) error {
+func (r *DingTalk) SendTextAt(text string, atMobiles []string, isAtAll bool) error {
+	if utils.IsEmpty(text) {
+		return vars.ErrParamEmpty
+	}
+
 	return r.send(&textMessage{
 		MsgType: msgTypeText,
 		Text: textParams{
-			Content: content,
+			Content: text,
 		},
 		At: atParams{
 			AtMobiles: atMobiles,
@@ -61,7 +95,11 @@ func (r *Robot) SendTextAt(content string, atMobiles []string, isAtAll bool) err
 	})
 }
 
-func (r *Robot) SendLink(title, text, messageURL, picURL string) error {
+func (r *DingTalk) SendLink(title, text, messageURL, picURL string) error {
+	if utils.IsEmpty(title) || utils.IsEmpty(text) || utils.IsEmpty(messageURL) {
+		return vars.ErrParamEmpty
+	}
+
 	return r.send(&linkMessage{
 		MsgType: msgTypeLink,
 		Link: linkParams{
@@ -73,22 +111,30 @@ func (r *Robot) SendLink(title, text, messageURL, picURL string) error {
 	})
 }
 
-func (r *Robot) SendMarkdown(title, text string) error {
+func (r *DingTalk) SendMarkdown(title, body string) error {
+	if utils.IsEmpty(title) || utils.IsEmpty(body) {
+		return vars.ErrParamEmpty
+	}
+
 	return r.send(&markdownMessage{
 		MsgType: msgTypeMarkdown,
 		Markdown: markdownParams{
 			Title: title,
-			Text:  text,
+			Text:  body,
 		},
 	})
 }
 
-func (r *Robot) SendMarkdownAt(title, text string, atMobiles []string, isAtAll bool) error {
+func (r *DingTalk) SendMarkdownAt(title, body string, atMobiles []string, isAtAll bool) error {
+	if utils.IsEmpty(title) || utils.IsEmpty(body) {
+		return vars.ErrParamEmpty
+	}
+
 	return r.send(&markdownMessage{
 		MsgType: msgTypeMarkdown,
 		Markdown: markdownParams{
 			Title: title,
-			Text:  text,
+			Text:  body,
 		},
 		At: atParams{
 			AtMobiles: atMobiles,
@@ -97,15 +143,10 @@ func (r *Robot) SendMarkdownAt(title, text string, atMobiles []string, isAtAll b
 	})
 }
 
-// NewRobot returns a roboter that can send messages.
-func NewRobot(token string) *Robot {
-	return &Robot{
-		host:  "https://oapi.dingtalk.com/robot/send",
+// NewDingTalk returns a roboter that can send messages.
+func NewDingTalk(token string) *DingTalk {
+	return &DingTalk{
+		host:  vars.HostDingTalk,
 		token: token,
 	}
-}
-
-func (r *Robot) DebugMode() *Robot {
-	r.debug = true
-	return r
 }

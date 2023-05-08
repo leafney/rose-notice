@@ -15,7 +15,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/leafney/rose-notify/utils"
+	"github.com/leafney/rose-notify/common/utils"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -27,7 +27,7 @@ type Response struct {
 	ErrMsg  string `json:"errmsg"`
 }
 
-func (r *Robot) send(msg interface{}) error {
+func (r *DingTalk) send(msg interface{}) error {
 	m, err := json.Marshal(msg)
 	if err != nil {
 		return err

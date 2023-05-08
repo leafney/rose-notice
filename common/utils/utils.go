@@ -29,6 +29,10 @@ func JoinPath(basePath string, elem ...string) (string, error) {
 	return u.String(), nil
 }
 
+func IsEmpty(s string) bool {
+	return len(strings.TrimSpace(s)) == 0
+}
+
 func IsNotEmpty(s string) bool {
 	return len(strings.TrimSpace(s)) > 0
 }

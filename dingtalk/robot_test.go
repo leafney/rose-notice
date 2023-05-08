@@ -12,17 +12,23 @@ import "testing"
 
 func TestNewRobot(t *testing.T) {
 
-	bot := NewRobot("")
-	bot.SetSecret("")
+	bot := NewDingTalk("")
+	// 初始化的设置
+	bot.SetDebug(true).UseSecret("")
 
-	//bot.SetHost("")
+	// 使用新的token，调用通用的方法
+	bot.UseToken("").SendText("")
 
-	//err := robot.
-	//  DebugMode().
+	// 调用独有的方法
+	bot.SendTextAt("hello", []string{}, true)
+
+	//err := bot.
+	//	SetDebug(true).
 	//	SendText("test 你好，这是测试内容")
 
 	err := bot.
-		DebugMode().
+		SetDebug(true).
 		SendMarkdown("### 这是标题", "#### 杭州天气  \n > 9度，@1825718XXXX 西北风1级，空气良89，相对温度73%\n\n > ![screenshot](http://i01.lw.aliimg.com/media/lALPBbCc1ZhJGIvNAkzNBLA_1200_588.png)\n  > ###### 10点20分发布 [天气](http://www.thinkpage.cn/) ")
+
 	t.Log(err)
 }

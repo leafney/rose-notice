@@ -13,7 +13,7 @@ import (
 	"crypto/sha256"
 	"encoding/base64"
 	"fmt"
-	"github.com/leafney/rose-notify/utils"
+	"github.com/leafney/rose-notify/common/utils"
 	"time"
 )
 

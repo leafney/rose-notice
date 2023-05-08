@@ -2,7 +2,7 @@ package wochat
 
 import (
 	"errors"
-	"github.com/leafney/rose-notify/utils"
+	"github.com/leafney/rose-notify/common/utils"
 )
 
 // Roboter is the interface implemented by Robot that can send multiple types of messages.

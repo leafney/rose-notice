@@ -13,7 +13,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/leafney/rose-notify/utils"
+	"github.com/leafney/rose-notify/common/utils"
 	"io"
 	"io/ioutil"
 	"net/http"

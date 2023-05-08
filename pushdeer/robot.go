@@ -8,7 +8,9 @@
 
 package pushdeer
 
-import "github.com/leafney/rose-notify/utils"
+import (
+	"github.com/leafney/rose-notify/common/utils"
+)
 
 type Roboter interface {
 	SetHost(host string)
