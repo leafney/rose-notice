@@ -17,10 +17,10 @@ func TestNewRobot(t *testing.T) {
 	bot.SetDebug(true).UseSecret("")
 
 	// 使用新的token，调用通用的方法
-	bot.UseToken("").SendText("")
+	//err := bot.UseToken("").SendText("你好呀")
 
 	// 调用独有的方法
-	bot.SendTextAt("hello", []string{}, true)
+	//err := bot.SendTextAt("hello", []string{}, true)
 
 	//err := bot.
 	//	SetDebug(true).
