@@ -16,7 +16,7 @@ func TestNewRobot(t *testing.T) {
 	//bot.SetToken("") // reset token
 
 	err := bot.
-		//SetGet().
+		//UseGet().
 		//SetCopy("三拼霸霸奶茶").
 		//SetAutoCopy(true).
 		//SetLevel(1).
@@ -24,9 +24,9 @@ func TestNewRobot(t *testing.T) {
 		//SetDefSound().
 		//SendText("下午茶时间")
 		SendMsg("下午茶喝什么", "蜜雪冰城")
-		//SendLink("https://www.baidu.com")
-		//SendLink("https://www.baidu.com/img/flexible/logo/pc/index@2.png")
-		//SendLink("weixin://")
+	//SendLink("https://www.baidu.com")
+	//SendLink("https://www.baidu.com/img/flexible/logo/pc/index@2.png")
+	//SendLink("weixin://")
 	if err != nil {
 		t.Log(err)
 	}

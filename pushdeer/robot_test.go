@@ -11,13 +11,13 @@ package pushdeer
 import "testing"
 
 func TestNewRobot(t *testing.T) {
-	bot := NewRobot("ef2cce2e-2d00-4493-9a36-2c0c0592eb21", "")
+	bot := NewPushDeer("")
 	//bot.SetHost("") // reset host
-	//bot.SetKey("")  // reset key
+	//bot.SetKey("")  // reset token
 
 	err := bot.
-		DebugMode().
-		//SetGet().
+		SetDebug(true).
+		//UseGet().
 		//SendText("我饿啦，我饿啦")
 		//SendMsg("中午啦", "我饿啦")
 		//SendImage("https://www.baidu.com/img/flexible/logo/pc/index@2.png")

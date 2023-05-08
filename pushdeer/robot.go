@@ -10,67 +10,80 @@ package pushdeer
 
 import (
 	"github.com/leafney/rose-notify/common/utils"
+	"github.com/leafney/rose-notify/common/vars"
+	"github.com/leafney/rose-notify/notice"
 )
 
-type Roboter interface {
-	SetHost(host string)
-	SetKey(key string)
+//
+//type Roboter interface {
+//	SetHost(host string)
+//	SetKey(token string)
+//
+//	SendText(text string) error
+//	SendMsg(title, body string) error
+//	SendImage(url string) error
+//	SendMarkdown(title, body string) error
+//}
 
-	SendText(text string) error
-	SendMsg(title, body string) error
-	SendImage(url string) error
-	SendMarkdown(title, body string) error
-}
-
-type Robot struct {
+type PushDeer struct {
 	host  string
-	key   string
+	token string
 	isGet bool
 	debug bool
 }
 
-func (r *Robot) SetHost(host string) {
-	r.host = host
+func (r *PushDeer) UseHost(url string) notice.Noticer {
+	if utils.IsNotEmpty(url) {
+		r.host = url
+	}
+	return r
 }
 
-func (r *Robot) SetKey(key string) {
-	r.key = key
+func (r *PushDeer) UseToken(token string) notice.Noticer {
+	if utils.IsNotEmpty(token) {
+		r.token = token
+	}
+	return r
 }
 
-func (r *Robot) SendText(text string) error {
+func (r *PushDeer) UseSecret(secret string) notice.Noticer {
+	return r
+}
+
+func (r *PushDeer) SetDebug(debug bool) notice.Noticer {
+	r.debug = debug
+	return r
+}
+
+func (r *PushDeer) SendText(text string) error {
+	if utils.IsEmpty(text) {
+		return vars.ErrParamEmpty
+	}
+
 	return r.send("text", text, "")
 }
 
-func (r *Robot) SendMsg(title, body string) error {
-	return r.send("text", title, body)
-}
-
-func (r *Robot) SendImage(url string) error {
-	return r.send("image", url, "")
-}
-
-func (r *Robot) SendMarkdown(title, body string) error {
+func (r *PushDeer) SendMarkdown(title, body string) error {
 	return r.send("markdown", title, body)
 }
 
-// NewRobot host default is `https://api2.pushdeer.com`
-func NewRobot(key, host string) *Robot {
-	if !utils.IsNotEmpty(host) {
-		host = "https://api2.pushdeer.com"
-	}
-
-	return &Robot{
-		host: host,
-		key:  key,
-	}
+func (r *PushDeer) SendMsg(title, body string) error {
+	return r.send("text", title, body)
 }
 
-func (r *Robot) SetGet() *Robot {
+func (r *PushDeer) SendImage(url string) error {
+	return r.send("image", url, "")
+}
+
+func (r *PushDeer) UseGet() *PushDeer {
 	r.isGet = true
 	return r
 }
 
-func (r *Robot) DebugMode() *Robot {
-	r.debug = true
-	return r
+// NewPushDeer
+func NewPushDeer(key string) *PushDeer {
+	return &PushDeer{
+		host:  vars.HostPushDeer,
+		token: key,
+	}
 }

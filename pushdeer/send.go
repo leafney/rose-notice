@@ -27,13 +27,13 @@ type RespCont struct {
 	Result []string `json:"result"`
 }
 
-func (r *Robot) send(msgType, title, body string) error {
+func (r *PushDeer) send(msgType, title, body string) error {
 
 	msg := map[string]string{
 		"type":    msgType,
 		"text":    title,
 		"desp":    body,
-		"pushkey": r.key,
+		"pushkey": r.token,
 	}
 
 	var method = http.MethodPost

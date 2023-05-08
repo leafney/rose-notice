@@ -19,7 +19,7 @@ func TestNewRobot(t *testing.T) {
 	err := bot.
 		DebugMode().
 		SetGroup("test").
-		//SetGet().
+		//UseGet().
 		//SetBadge(5).
 		//SetLevel(1).
 		//SetSound(SoundBell).
