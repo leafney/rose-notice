@@ -10,19 +10,21 @@ package bark
 
 import (
 	"github.com/leafney/rose-notify/common/utils"
+	"github.com/leafney/rose-notify/common/vars"
+	"github.com/leafney/rose-notify/notice"
 )
 
-type Roboter interface {
-	SetHost(host string)
-	SetKey(key string)
+//type Roboter interface {
+//	SetHost(host string)
+//	SetKey(token string)
+//
+//	SendText(text string) error
+//	SendMsg(title, body string) error
+//}
 
-	SendText(text string) error
-	SendMsg(title, body string) error
-}
-
-type Robot struct {
+type Bark struct {
 	host  string
-	key   string
+	token string
 	isGet bool
 	debug bool
 
@@ -37,75 +39,94 @@ type Robot struct {
 	badge     int64
 }
 
-func (r *Robot) SendText(text string) error {
+func (r *Bark) UseHost(url string) notice.Noticer {
+	if utils.IsNotEmpty(url) {
+		r.host = url
+	}
+	return r
+}
+
+func (r *Bark) UseToken(token string) notice.Noticer {
+	if utils.IsNotEmpty(token) {
+		r.token = token
+	}
+	return r
+}
+
+func (r *Bark) UseSecret(secret string) notice.Noticer {
+	return r
+}
+
+func (r *Bark) SendText(text string) error {
 	return r.send("", text)
 }
 
-func (r *Robot) SendMsg(title, body string) error {
+func (r *Bark) SendMsg(title, body string) error {
 	return r.send(title, body)
 }
 
-func (r *Robot) SetKey(key string) {
-	r.key = key
-}
-
-func (r *Robot) SetHost(host string) {
-	r.host = host
-}
-
-// NewRobot host default is `https://api.day.app`
-func NewRobot(key, host string) *Robot {
-	if !utils.IsNotEmpty(host) {
-		host = "https://api.day.app"
-	}
-
-	return &Robot{
-		host: host,
-		key:  key,
+// NewBark host default is `https://api.day.app`
+func NewBark(token string) *Bark {
+	return &Bark{
+		host:  vars.HostBark,
+		token: token,
 	}
 }
 
-func (r *Robot) SetGet() *Robot {
+func (r *Bark) SetDebug(debug bool) *Bark {
+	r.debug = debug
+	return r
+}
+
+func (r *Bark) SetGet() *Bark {
 	r.isGet = true
 	return r
 }
 
-func (r *Robot) SetGroup(group string) *Robot {
-	r.group = group
+func (r *Bark) SetGroup(group string) *Bark {
+	if utils.IsNotEmpty(group) {
+		r.group = group
+	}
 	return r
 }
 
 // SetCopy Specify what to copy
-func (r *Robot) SetCopy(text string) *Robot {
-	r.copyText = text
+func (r *Bark) SetCopy(text string) *Bark {
+	if utils.IsNotEmpty(text) {
+		r.copyText = text
+	}
 	return r
 }
 
 // SetAutoCopy auto copy
-func (r *Robot) SetAutoCopy(copy bool) *Robot {
+func (r *Bark) SetAutoCopy(copy bool) *Bark {
 	r.autoCopy = copy
 	return r
 }
 
 // SetIcon icon url
-func (r *Robot) SetIcon(icon string) *Robot {
-	r.icon = icon
+func (r *Bark) SetIcon(icon string) *Bark {
+	if utils.IsNotEmpty(icon) {
+		r.icon = icon
+	}
 	return r
 }
 
-// SetUrl
-func (r *Robot) SetUrl(url string) *Robot {
-	r.url = url
+// SetJumpUrl Jump to the address of URL
+func (r *Bark) SetJumpUrl(url string) *Bark {
+	if utils.IsNotEmpty(url) {
+		r.url = url
+	}
 	return r
 }
 
-func (r *Robot) SetArchive(archive bool) *Robot {
+func (r *Bark) SetArchive(archive bool) *Bark {
 	r.isArchive = archive
 	return r
 }
 
 // SetLevel 0:active，default; 1:timeSensitive; 2:passive
-func (r *Robot) SetLevel(level int) *Robot {
+func (r *Bark) SetLevel(level int) *Bark {
 	switch level {
 	case 1:
 		// timeSensitive
@@ -120,23 +141,18 @@ func (r *Robot) SetLevel(level int) *Robot {
 	return r
 }
 
-func (r *Robot) SetSound(soundName string) *Robot {
-	r.soundName = soundName
+func (r *Bark) SetSound(name Sound) *Bark {
+	r.soundName = name.String()
 	return r
 }
 
 // SetSilence mute the sounds
-func (r *Robot) SetSilence() *Robot {
+func (r *Bark) SetSilence() *Bark {
 	r.soundName = SoundSilence
 	return r
 }
 
-func (r *Robot) SetBadge(badge int64) *Robot {
+func (r *Bark) SetBadge(badge int64) *Bark {
 	r.badge = badge
-	return r
-}
-
-func (r *Robot) DebugMode() *Robot {
-	r.debug = true
 	return r
 }

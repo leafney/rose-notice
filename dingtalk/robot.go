@@ -60,11 +60,6 @@ func (r *DingTalk) UseSecret(secret string) notice.Noticer {
 	return r
 }
 
-func (r *DingTalk) SetDebug(debug bool) notice.Noticer {
-	r.debug = debug
-	return r
-}
-
 func (r *DingTalk) SendText(text string) error {
 	if utils.IsEmpty(text) {
 		return vars.ErrParamEmpty
@@ -149,4 +144,9 @@ func NewDingTalk(token string) *DingTalk {
 		host:  vars.HostDingTalk,
 		token: token,
 	}
+}
+
+func (r *DingTalk) SetDebug(debug bool) *DingTalk {
+	r.debug = debug
+	return r
 }

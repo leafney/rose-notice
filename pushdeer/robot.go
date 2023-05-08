@@ -55,6 +55,11 @@ func (r *PushDeer) SetDebug(debug bool) notice.Noticer {
 	return r
 }
 
+func (r *PushDeer) UseGet() notice.Noticer {
+	r.isGet = true
+	return r
+}
+
 func (r *PushDeer) SendText(text string) error {
 	if utils.IsEmpty(text) {
 		return vars.ErrParamEmpty
@@ -75,15 +80,10 @@ func (r *PushDeer) SendImage(url string) error {
 	return r.send("image", url, "")
 }
 
-func (r *PushDeer) UseGet() *PushDeer {
-	r.isGet = true
-	return r
-}
-
 // NewPushDeer
-func NewPushDeer(key string) *PushDeer {
+func NewPushDeer(token string) *PushDeer {
 	return &PushDeer{
 		host:  vars.HostPushDeer,
-		token: key,
+		token: token,
 	}
 }

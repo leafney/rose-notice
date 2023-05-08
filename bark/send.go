@@ -25,12 +25,12 @@ type Response struct {
 	Timestamp int64  `json:"timestamp"`
 }
 
-func (r *Robot) send(title, body string) error {
+func (r *Bark) send(title, body string) error {
 
 	msg := map[string]string{
 		"title":      title,
 		"body":       body,
-		"device_key": r.key,
+		"device_key": r.token,
 	}
 
 	if utils.IsNotEmpty(r.group) {
@@ -67,7 +67,7 @@ func (r *Robot) send(title, body string) error {
 	var bodyData io.Reader
 
 	if r.isGet {
-		webURL, _ = utils.JoinPath(webURL, r.key, title, body)
+		webURL, _ = utils.JoinPath(webURL, r.token, title, body)
 		method = http.MethodGet
 		for k, v := range msg {
 			if k == "device_key" || k == "title" || k == "body" {

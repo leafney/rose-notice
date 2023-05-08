@@ -9,11 +9,10 @@
 - `UseHost(url string)`
 - `UseToken(token string)`
 - `UseSecret(secret string)`
-- `SetDebug(debug bool)`
 - `SendText(text string)`
 - `SendTextAt(text string, atMobiles []string, isAtAll bool)`
 - `SendLink(title, text, messageURL, picURL string)`
 - `SendMarkdown(title, body string)`
 - `SendMarkdownAt(title, body string, atMobiles []string, isAtAll bool)`
-
+- `SetDebug(debug bool)`
 ----

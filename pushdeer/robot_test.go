@@ -12,8 +12,8 @@ import "testing"
 
 func TestNewRobot(t *testing.T) {
 	bot := NewPushDeer("")
-	//bot.SetHost("") // reset host
-	//bot.SetKey("")  // reset token
+	//bot.UseHost("")  // reset host
+	//bot.UseToken("") // reset token
 
 	err := bot.
 		SetDebug(true).

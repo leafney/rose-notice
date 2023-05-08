@@ -76,10 +76,7 @@ func main() {
 
 #### Bark
 
-- `SetHost(host string)`
-- `SetKey(key string)`
-- `SendText(text string)`
-- `SendMsg(title, body string)`
+
 
 #### Chanify
 
@@ -89,14 +86,7 @@ func main() {
 - `SendMsg(title, body string)`
 - `SendLink(link string)`
 
-#### PushDeer
-
-- `SetHost(host string)`
-- `SetKey(key string)`
-- `SendText(text string)`
-- `SendMsg(title, body string)`
-- `SendImage(url string)`
-- `SendMarkdown(title, body string)`
+##
 
 ----
 

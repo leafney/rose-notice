@@ -12,19 +12,19 @@ import "testing"
 
 func TestNewRobot(t *testing.T) {
 
-	bot := NewRobot("", "https://api.day.app")
-	//bot.SetHost("") // reset host
-	//bot.SetKey("") // reset key
+	bot := NewBark("")
+	//bot.UseHost("")  // reset host
+	//bot.UseToken("") // reset token
 
 	err := bot.
-		DebugMode().
+		SetDebug(true).
 		SetGroup("test").
 		//UseGet().
 		//SetBadge(5).
 		//SetLevel(1).
-		//SetSound(SoundBell).
+		SetSound(SoundChime).
 		SetCopy("吃饭啦").
-		SetUrl("weixin://").
+		SetJumpUrl("weixin://").
 		SendText("中午啦")
 	t.Log(err)
 }

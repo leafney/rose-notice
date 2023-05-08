@@ -56,11 +56,6 @@ func (r *FeiShu) UseSecret(secret string) notice.Noticer {
 	return r
 }
 
-func (r *FeiShu) SetDebug(debug bool) notice.Noticer {
-	r.debug = debug
-	return r
-}
-
 func (r *FeiShu) SendText(text string) error {
 	if utils.IsEmpty(text) {
 		return vars.ErrParamEmpty
@@ -83,17 +78,17 @@ func (r *FeiShu) SendText(text string) error {
 	return r.send(params)
 }
 
-// SendMarkdown Not Support
-func (r *FeiShu) SendMarkdown(title, body string) error {
-	return vars.ErrMethodNotSupported
-}
-
 // NewFeiShu returns a roboter that can send messages.
 func NewFeiShu(token string) *FeiShu {
 	return &FeiShu{
 		host:  vars.HostFeiShu,
 		token: token,
 	}
+}
+
+func (r *FeiShu) SetDebug(debug bool) *FeiShu {
+	r.debug = debug
+	return r
 }
 
 func sign(message string) string {
