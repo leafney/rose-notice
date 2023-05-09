@@ -14,6 +14,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/leafney/rose-notify/common/utils"
+	"github.com/leafney/rose-notify/common/vars"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -27,6 +28,9 @@ type Response struct {
 }
 
 func (r *Robot) send(title, body, urlPath string) error {
+	if utils.IsEmpty(r.token) {
+		return vars.ErrTokenEmpty
+	}
 
 	if r.isText && !utils.IsNotEmpty(body) {
 		return errors.New("body can not empty")

@@ -35,7 +35,7 @@ type Bark struct {
 	url       string
 	isArchive bool
 	level     string
-	soundName string
+	soundName Sound
 	badge     int64
 }
 
@@ -53,6 +53,7 @@ func (r *Bark) UseToken(token string) notice.Noticer {
 	return r
 }
 
+// Deprecated
 func (r *Bark) UseSecret(secret string) notice.Noticer {
 	return r
 }
@@ -142,7 +143,7 @@ func (r *Bark) SetLevel(level int) *Bark {
 }
 
 func (r *Bark) SetSound(name Sound) *Bark {
-	r.soundName = name.String()
+	r.soundName = name
 	return r
 }
 

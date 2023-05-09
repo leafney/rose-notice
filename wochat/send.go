@@ -3,9 +3,9 @@ package wochat
 import (
 	"bytes"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/leafney/rose-notify/common/utils"
+	"github.com/leafney/rose-notify/common/vars"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -17,8 +17,8 @@ type Response struct {
 }
 
 func (r *Robot) send(msg interface{}) error {
-	if !utils.IsNotEmpty(r.key) {
-		return errors.New("the key empty")
+	if utils.IsEmpty(r.key) {
+		return vars.ErrTokenEmpty
 	}
 
 	m, err := json.Marshal(msg)

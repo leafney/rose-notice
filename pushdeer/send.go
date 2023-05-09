@@ -13,6 +13,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/leafney/rose-notify/common/utils"
+	"github.com/leafney/rose-notify/common/vars"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -28,6 +29,9 @@ type RespCont struct {
 }
 
 func (r *PushDeer) send(msgType, title, body string) error {
+	if utils.IsEmpty(r.token) {
+		return vars.ErrTokenEmpty
+	}
 
 	msg := map[string]string{
 		"type":    msgType,

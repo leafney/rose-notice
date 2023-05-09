@@ -15,7 +15,7 @@ func TestNewRobot(t *testing.T) {
 	bot := NewBark("")
 	//bot.UseHost("")  // reset host
 	//bot.UseToken("") // reset token
-
+	bot.UseSecret("")
 	err := bot.
 		SetDebug(true).
 		SetGroup("test").

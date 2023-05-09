@@ -5,11 +5,16 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/leafney/rose-notify/common/utils"
+	"github.com/leafney/rose-notify/common/vars"
 	"io/ioutil"
 	"net/http"
 )
 
 func (r *Robot) send(msg interface{}) error {
+	if utils.IsEmpty(r.token) {
+		return vars.ErrTokenEmpty
+	}
+
 	m, err := json.Marshal(msg)
 	if err != nil {
 		return err

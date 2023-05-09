@@ -13,6 +13,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/leafney/rose-notify/common/utils"
+	"github.com/leafney/rose-notify/common/vars"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -26,6 +27,9 @@ type Response struct {
 }
 
 func (r *Bark) send(title, body string) error {
+	if utils.IsEmpty(r.token) {
+		return vars.ErrTokenEmpty
+	}
 
 	msg := map[string]string{
 		"title":      title,
@@ -54,8 +58,8 @@ func (r *Bark) send(title, body string) error {
 	if r.isArchive {
 		msg["isArchive"] = "1"
 	}
-	if utils.IsNotEmpty(r.soundName) {
-		msg["sound"] = r.soundName
+	if utils.IsNotEmpty(r.soundName.String()) {
+		msg["sound"] = r.soundName.String()
 	}
 	if r.badge > 0 {
 		msg["badge"] = utils.Int64ToStr(r.badge)

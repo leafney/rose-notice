@@ -11,6 +11,19 @@
 - `UseSecret(secret string)`
 - `SendText(text string)`
 - `SendMsg(title, body string)`
+- `SetDebug(debug bool)`
+- `SetGet()`
+- `SetGroup(group string)`
+- `SetCopy(text string)`
+- `SetAutoCopy(copy bool)`
+- `SetIcon(icon string)`
+- `SetJumpUrl(url string)`
+- `SetArchive(archive bool)`
+- `SetLevel(level int)`
+- `SetSound(name Sound)`
+- `SetSilence()`
+- `SetBadge(badge int64)`
+
 
 ## Parameters
 
