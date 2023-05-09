@@ -12,10 +12,9 @@
 - [x] Bark
 - [x] Chanify
 - [x] PushDeer
-- [ ] 息知
 - [x] Slack
 - [ ] Telegram
-
+- [ ] 息知
 
 
 | method   | default host | custom host | need token/key | support secret | support text | support title | support markdown | details |
@@ -34,23 +33,45 @@
 
 ## How to use
 
+### single support
+
 ```go
 func main() {
-	// 初始化
+	// initialization
 	bot := NewDingTalk("token")
 	
-	// 链式调用,设置secret
+	// Chain call to set secret
 	bot.SetDebug(true).UseSecret("secret")
 
-	// 调用通用方法
+	// Call the generic method
 	err := bot.SendText("Hello World!")
 	
-	// 调用独有的方法
+	// call unique method
 	err := bot.SendTextAt("hello", []string{}, true)
 
-	// 使用新的token，调用通用的方法
+	// Use the new token to call the general method
 	err := bot.UseToken("another token").SendText("你好")
 }
+```
+
+
+### Multiple support
+
+```go
+func main() {
+    // use:
+    n := dingtalk.NewDingTalk("token").UseSecret("secret")
+    // or use:
+    n := bark.NewBark("token").SetDebug(true).SetAutoCopy(true)
+    // or use: 
+    n := slack.NewSlack("token")
+    
+    ner := NewNotify(n)
+    if err := ner.SendNotify("Hello World!"); err != nil {
+    t.Log(err)
+    }
+}
+
 ```
 
 ----

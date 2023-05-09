@@ -1,9 +1,9 @@
 package slack
 
 import (
+	"github.com/leafney/rose-notify/common/notice"
 	"github.com/leafney/rose-notify/common/utils"
 	"github.com/leafney/rose-notify/common/vars"
-	"github.com/leafney/rose-notify/notice"
 )
 
 //// Roboter is the interface implemented by Slack that can send multiple types of messages.

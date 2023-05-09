@@ -9,9 +9,9 @@
 package pushdeer
 
 import (
+	"github.com/leafney/rose-notify/common/notice"
 	"github.com/leafney/rose-notify/common/utils"
 	"github.com/leafney/rose-notify/common/vars"
-	"github.com/leafney/rose-notify/notice"
 )
 
 //
