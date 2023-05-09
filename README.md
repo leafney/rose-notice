@@ -6,27 +6,29 @@
 
 ## Support
 
-- [x] Dingtalk
-- [x] Feishu
+- [x] DingTalk
+- [x] FeiShu
 - [x] WoChat (企业微信)
 - [x] Bark
 - [x] Chanify
 - [x] PushDeer
 - [ ] 息知
-- [ ] Telegram
 - [x] Slack
+- [ ] Telegram
 
 
-| method   | default host | custom host | set key/token | show title |
-|----------| --- | -- | --- | --- |
-| Dingtalk | ✅ | ❌ | ✅ | ❌ |
-| Feishu   | ✅ | ❌ | ✅ | ❌ | 
-| WoChat   | ✅ | ❌ | ✅ | ❌ |
-| Bark     | ✅ | ✅ | ✅ | ✅ |
-| Chanify  | ✅ | ✅ | ✅ | ✅ |
-| PushDeer | ✅ | ✅ | ✅ | ❌ |
-| 息知       | ✅ | ❌ | ✅ | ❌ |
-| Slack    | ✅ | ❌ | ✅ | ❌ |
+
+| method   | default host | custom host | need token/key | support secret | support text | support title | support markdown | details |
+|----------| --- | -- | --- | --- | --- | --- | --- |
+| DingTalk | ✅ | ❌ | ✅ |  ✅ | ✅ | ✅ | ✅ | [README](dingtalk/README.md) |
+| FeiShu   | ✅ | ❌ | ✅ | ✅ | ✅ | ❌ | ❌ |  [README](feishu/README.md) |
+| WoChat   | ✅ | ❌ | ✅ | ❌ | ✅ | ❌ | ✅ | [README](wochat/README.md) |
+| Bark     | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ | ❌ | [README](bark/README.md) |
+| Chanify  | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ | ❌ | [README](chanify/README.md) |
+| PushDeer | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | [README](pushdeer/README.md) |
+| 息知      | ✅ | ❌ | ✅ | ❌ | ✅ | ✅ | ✅ | [README](xizhi/README.md) |
+| Slack    | ✅ | ❌ | ✅ | ❌ | ✅ | ❌ | ❌ | [README](slack/README.md) |
+
 
 ----
 

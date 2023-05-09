@@ -7,7 +7,6 @@
 - `NewPushDeer(token string)`
 - `UseHost(url string)`
 - `UseToken(token string)`
-- `UseSecret(secret string)`
 - `SetDebug(debug bool)`
 - `SendText(text string)`
 - `SendMsg(title, body string)`

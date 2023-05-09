@@ -6,7 +6,6 @@
 ## Feature
 
 - `NewDingTalk(token string)`
-- `UseHost(url string)`
 - `UseToken(token string)`
 - `UseSecret(secret string)`
 - `SendText(text string)`

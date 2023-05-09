@@ -8,7 +8,6 @@
 - `NewChanify(token string)`
 - `UseHost(url string)`
 - `UseToken(token string)`
-- `UseSecret(secret string)`
 - `SendText(text string)`
 - `SendMsg(title, body string)`
 - `SendLink(link string)`

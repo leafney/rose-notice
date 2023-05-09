@@ -21,10 +21,11 @@ type Slack struct {
 	debug bool
 }
 
+// Deprecated
 func (r *Slack) UseHost(url string) notice.Noticer {
-	if utils.IsNotEmpty(url) {
-		r.host = url
-	}
+	//if utils.IsNotEmpty(url) {
+	//	r.host = url
+	//}
 	return r
 }
 

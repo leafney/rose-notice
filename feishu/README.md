@@ -5,10 +5,9 @@
 ## Feature
 
 - `NewFeiShu(token string)`
-- `UseHost(url string)`
 - `UseToken(token string)`
 - `UseSecret(secret string)`
-- `SetDebug(debug bool)`
 - `SendText(text string)`
+- `SetDebug(debug bool)`
 
 ----

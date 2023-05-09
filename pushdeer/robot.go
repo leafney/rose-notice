@@ -46,11 +46,11 @@ func (r *PushDeer) UseToken(token string) notice.Noticer {
 	return r
 }
 
+// Deprecated
 func (r *PushDeer) UseSecret(secret string) notice.Noticer {
 	return r
 }
 
-// Deprecated
 func (r *PushDeer) SendText(text string) error {
 	if utils.IsEmpty(text) {
 		return vars.ErrParamEmpty

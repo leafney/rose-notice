@@ -35,10 +35,11 @@ type FeiShu struct {
 	debug  bool
 }
 
+// Deprecated
 func (r *FeiShu) UseHost(url string) notice.Noticer {
-	if utils.IsNotEmpty(url) {
-		r.host = url
-	}
+	//if utils.IsNotEmpty(url) {
+	//	r.host = url
+	//}
 	return r
 }
 
