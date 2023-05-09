@@ -14,22 +14,6 @@ import (
 	"github.com/leafney/rose-notify/notice"
 )
 
-//
-//type Roboter interface {
-//	SetHost(host string)
-//	SetToken(token string)
-//
-//	SendText(text string) error
-//	SendMsg(title, body string) error
-//	SendLink(link string) error
-//
-//	//SendImage(url string) error
-//	//SendAudio(url string) error
-//	//SendFile(url, desc string) error
-//	//SendAction(title, text string) error
-//	//SendTimeline(code string) error
-//}
-
 type Chanify struct {
 	host  string
 	token string

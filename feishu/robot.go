@@ -19,14 +19,6 @@ import (
 	"time"
 )
 
-//// Roboter is the interface implemented by FeiShu that can send multiple types of messages.
-//type Roboter interface {
-//	SetHost(host string)
-//	SetSecret(secret string)
-//
-//	SendText(text string) error
-//}
-
 // FeiShu represents a feishu custom robot that can send messages.
 type FeiShu struct {
 	host   string

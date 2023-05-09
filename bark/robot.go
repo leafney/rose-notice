@@ -14,14 +14,6 @@ import (
 	"github.com/leafney/rose-notify/notice"
 )
 
-//type Roboter interface {
-//	SetHost(host string)
-//	SetKey(token string)
-//
-//	SendText(text string) error
-//	SendMsg(title, body string) error
-//}
-
 type Bark struct {
 	host  string
 	token string

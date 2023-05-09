@@ -14,24 +14,7 @@ import (
 	"github.com/leafney/rose-notify/notice"
 )
 
-//
-//// Roboter is the interface implemented by DingTalk that can send multiple types of messages.
-//type Roboter interface {
-//	UseHost(url string)
-//	UseToken(token string)
-//	UseSecret(secret string)
-//
-//	SendText(content string) error
-//	SendTextAt(content string, atMobiles []string, isAtAll bool) error
-//	SendLink(title, text, messageURL, picURL string) error
-//	SendMarkdown(title, text string) error
-//	SendMarkdownAt(title, text string, atMobiles []string, isAtAll bool) error
-//	//SendActionCard(title, text, singleTitle, singleURL, btnOrientation, hideAvatar string) error
-//	//SendActionCards(title, text string)error
-//	//SendFeedCard(title string)
-//}
-
-// DingTalk represents a dingtalk custom robot that can send messages to groups.
+// DingTalk
 type DingTalk struct {
 	host   string
 	token  string
@@ -139,7 +122,7 @@ func (r *DingTalk) SendMarkdownAt(title, body string, atMobiles []string, isAtAl
 	})
 }
 
-// NewDingTalk returns a roboter that can send messages.
+// NewDingTalk
 func NewDingTalk(token string) *DingTalk {
 	return &DingTalk{
 		host:  vars.HostDingTalk,
