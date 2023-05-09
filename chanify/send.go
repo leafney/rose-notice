@@ -27,7 +27,7 @@ type Response struct {
 	RequestUid string `json:"request-uid"`
 }
 
-func (r *Robot) send(title, body, urlPath string) error {
+func (r *Chanify) send(title, body, urlPath string) error {
 	if utils.IsEmpty(r.token) {
 		return vars.ErrTokenEmpty
 	}

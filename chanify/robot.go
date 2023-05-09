@@ -10,24 +10,27 @@ package chanify
 
 import (
 	"github.com/leafney/rose-notify/common/utils"
+	"github.com/leafney/rose-notify/common/vars"
+	"github.com/leafney/rose-notify/notice"
 )
 
-type Roboter interface {
-	SetHost(host string)
-	SetToken(token string)
+//
+//type Roboter interface {
+//	SetHost(host string)
+//	SetToken(token string)
+//
+//	SendText(text string) error
+//	SendMsg(title, body string) error
+//	SendLink(link string) error
+//
+//	//SendImage(url string) error
+//	//SendAudio(url string) error
+//	//SendFile(url, desc string) error
+//	//SendAction(title, text string) error
+//	//SendTimeline(code string) error
+//}
 
-	SendText(text string) error
-	SendMsg(title, body string) error
-	SendLink(link string) error
-
-	//SendImage(url string) error
-	//SendAudio(url string) error
-	//SendFile(url, desc string) error
-	//SendAction(title, text string) error
-	//SendTimeline(code string) error
-}
-
-type Robot struct {
+type Chanify struct {
 	host  string
 	token string
 	isGet bool
@@ -47,65 +50,79 @@ type Robot struct {
 	//timeline string
 }
 
-func (r *Robot) SetHost(host string) {
-	r.host = host
+func (r *Chanify) UseHost(url string) notice.Noticer {
+	if utils.IsNotEmpty(url) {
+		r.host = url
+	}
+	return r
 }
 
-func (r *Robot) SetToken(token string) {
-	r.token = token
+func (r *Chanify) UseToken(token string) notice.Noticer {
+	if utils.IsNotEmpty(token) {
+		r.token = token
+	}
+	return r
 }
 
-func (r *Robot) SendText(text string) error {
+// Deprecated
+func (r *Chanify) UseSecret(secret string) notice.Noticer {
+	return r
+}
+
+func (r *Chanify) SendText(text string) error {
 	r.isText = true
 	return r.send("", text, "")
 }
 
-func (r *Robot) SendMsg(title, body string) error {
+func (r *Chanify) SendMsg(title, body string) error {
 	r.isText = true
 	return r.send(title, body, "")
 }
 
-func (r *Robot) SendLink(link string) error {
+func (r *Chanify) SendLink(link string) error {
 	r.isLink = true
 	return r.send("", "", link)
 }
 
-//func (r *Robot) SendImage(url string) error {
+//func (r *Chanify) SendImage(url string) error {
 //	r.isImage = true
 //	return r.send("", "", url)
 //}
 
-// NewRobot host default is `https://api.chanify.net`
-func NewRobot(token, host string) *Robot {
-	if !utils.IsNotEmpty(host) {
-		host = "https://api.chanify.net"
-	}
-
-	return &Robot{
-		host:  host,
+// NewChanify host default is `https://api.chanify.net`
+func NewChanify(token string) *Chanify {
+	return &Chanify{
+		host:  vars.HostChanify,
 		token: token,
 	}
 }
 
-func (r *Robot) SetGet() *Robot {
+func (r *Chanify) SetDebug(debug bool) *Chanify {
+	r.debug = debug
+	return r
+}
+
+func (r *Chanify) SetGet() *Chanify {
 	r.isGet = true
 	return r
 }
 
 // SetCopy Specify what to copy
-func (r *Robot) SetCopy(text string) *Robot {
-	r.copyText = text
+func (r *Chanify) SetCopy(text string) *Chanify {
+	if utils.IsNotEmpty(text) {
+		r.copyText = text
+	}
 	return r
 }
 
 // SetAutoCopy auto copy
-func (r *Robot) SetAutoCopy(copy bool) *Robot {
+func (r *Chanify) SetAutoCopy(copy bool) *Chanify {
 	r.autoCopy = copy
 	return r
 }
 
 // SetLevel 0:active，default; 1:time-sensitive; 2:passive
-func (r *Robot) SetLevel(level int) *Robot {
+func (r *Chanify) SetLevel(level int) *Chanify {
 	switch level {
 	case 1:
 		// timeSensitive
@@ -120,24 +137,19 @@ func (r *Robot) SetLevel(level int) *Robot {
 	return r
 }
 
-func (r *Robot) SetPriority(priority int) *Robot {
+func (r *Chanify) SetPriority(priority int) *Chanify {
 	r.priority = priority
 	return r
 }
 
 // SetSound special custom sound
-func (r *Robot) SetSound(soundName string) *Robot {
+func (r *Chanify) SetSound(soundName string) *Chanify {
 	r.soundName = soundName
 	return r
 }
 
-// SetDefSound enable default sound
-func (r *Robot) SetDefSound() *Robot {
+// SetRingtone enable ringtone
+func (r *Chanify) SetRingtone() *Chanify {
 	r.soundName = "1"
-	return r
-}
-
-func (r *Robot) DebugMode() *Robot {
-	r.debug = true
 	return r
 }

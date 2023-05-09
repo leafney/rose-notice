@@ -80,11 +80,6 @@ func main() {
 
 #### Chanify
 
-- `SetHost(host string)`
-- `SetToken(token string)`
-- `SendText(text string)`
-- `SendMsg(title, body string)`
-- `SendLink(link string)`
 
 ##
 
