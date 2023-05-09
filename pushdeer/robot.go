@@ -50,22 +50,23 @@ func (r *PushDeer) UseSecret(secret string) notice.Noticer {
 	return r
 }
 
-func (r *PushDeer) SetDebug(debug bool) notice.Noticer {
-	r.debug = debug
-	return r
-}
-
-func (r *PushDeer) UseGet() notice.Noticer {
-	r.isGet = true
-	return r
-}
-
+// Deprecated
 func (r *PushDeer) SendText(text string) error {
 	if utils.IsEmpty(text) {
 		return vars.ErrParamEmpty
 	}
 
 	return r.send("text", text, "")
+}
+
+func (r *PushDeer) SetDebug(debug bool) *PushDeer {
+	r.debug = debug
+	return r
+}
+
+func (r *PushDeer) SetGet() *PushDeer {
+	r.isGet = true
+	return r
 }
 
 func (r *PushDeer) SendMarkdown(title, body string) error {
