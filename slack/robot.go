@@ -1,31 +1,50 @@
 package slack
 
-// Roboter is the interface implemented by Robot that can send multiple types of messages.
-type Roboter interface {
-	SetHost(host string)
-	//SetSecret(secret string)
+import (
+	"github.com/leafney/rose-notify/common/utils"
+	"github.com/leafney/rose-notify/common/vars"
+	"github.com/leafney/rose-notify/notice"
+)
 
-	SendText(text string) error
-}
-
-// Robot represents a feishu custom robot that can send messages.
-type Robot struct {
-	host   string
-	token  string
-	secret string
-	debug  bool
-}
-
+//// Roboter is the interface implemented by Slack that can send multiple types of messages.
+//type Roboter interface {
+//	SetHost(host string)
+//	//SetSecret(secret string)
 //
-//func (r *Robot) SetSecret(secret string) {
-//	r.secret = secret
+//	SendText(text string) error
 //}
 
-func (r *Robot) SetHost(host string) {
-	r.host = host
+// Slack represents a feishu custom robot that can send messages.
+type Slack struct {
+	host  string
+	token string
+	debug bool
 }
 
-func (r *Robot) SendText(text string) error {
+func (r *Slack) UseHost(url string) notice.Noticer {
+	if utils.IsNotEmpty(url) {
+		r.host = url
+	}
+	return r
+}
+
+func (r *Slack) UseToken(token string) notice.Noticer {
+	if utils.IsNotEmpty(token) {
+		r.token = token
+	}
+	return r
+}
+
+// Deprecated
+func (r *Slack) UseSecret(secret string) notice.Noticer {
+	return r
+}
+
+func (r *Slack) SendText(text string) error {
+	if utils.IsEmpty(text) {
+		return vars.ErrParamEmpty
+	}
+
 	params := &textMessage{
 		Text: text,
 	}
@@ -33,15 +52,15 @@ func (r *Robot) SendText(text string) error {
 	return r.send(params)
 }
 
-// NewRobot returns a roboter that can send messages.
-func NewRobot(token string) *Robot {
-	return &Robot{
-		host:  "https://hooks.slack.com/services",
+// NewSlack init
+func NewSlack(token string) *Slack {
+	return &Slack{
+		host:  vars.HostSlack,
 		token: token,
 	}
 }
 
-func (r *Robot) SetDebug(debug bool) *Robot {
+func (r *Slack) SetDebug(debug bool) *Slack {
 	r.debug = debug
 	return r
 }

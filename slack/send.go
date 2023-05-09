@@ -10,7 +10,7 @@ import (
 	"net/http"
 )
 
-func (r *Robot) send(msg interface{}) error {
+func (r *Slack) send(msg interface{}) error {
 	if utils.IsEmpty(r.token) {
 		return vars.ErrTokenEmpty
 	}

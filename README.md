@@ -87,7 +87,5 @@ func main() {
 
 #### Slack
 
-- `SetHost(host string)`
-- `SendText(text string)`
 
 ----

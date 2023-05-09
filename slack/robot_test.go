@@ -3,7 +3,7 @@ package slack
 import "testing"
 
 func TestNewRobot(t *testing.T) {
-	bot := NewRobot("")
+	bot := NewSlack("")
 
 	err := bot.
 		SetDebug(false).
