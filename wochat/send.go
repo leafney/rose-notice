@@ -16,8 +16,8 @@ type Response struct {
 	ErrMsg  string `json:"errmsg"`
 }
 
-func (r *Robot) send(msg interface{}) error {
-	if utils.IsEmpty(r.key) {
+func (r *WoChat) send(msg interface{}) error {
+	if utils.IsEmpty(r.token) {
 		return vars.ErrTokenEmpty
 	}
 
@@ -32,7 +32,7 @@ func (r *Robot) send(msg interface{}) error {
 
 	webURL := r.host
 	value := url.Values{}
-	value.Set("key", r.key)
+	value.Set("token", r.token)
 
 	req, err := http.NewRequest(http.MethodPost, webURL, bytes.NewReader(m))
 	if err != nil {

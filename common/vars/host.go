@@ -7,4 +7,5 @@ const (
 	HostBark     = "https://api.day.app"
 	HostChanify  = "https://api.chanify.net"
 	HostSlack    = "https://hooks.slack.com/services"
+	HostWochat   = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send"
 )

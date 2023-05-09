@@ -3,7 +3,7 @@ package wochat
 import "testing"
 
 func TestNewRobot(t *testing.T) {
-	bot := NewRobot("")
+	bot := NewWoChat("")
 
 	//err := bot.
 	//	DebugMode().

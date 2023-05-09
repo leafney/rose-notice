@@ -1,70 +1,80 @@
 package wochat
 
 import (
-	"errors"
 	"github.com/leafney/rose-notify/common/utils"
+	"github.com/leafney/rose-notify/common/vars"
+	"github.com/leafney/rose-notify/notice"
 )
 
-// Roboter is the interface implemented by Robot that can send multiple types of messages.
-type Roboter interface {
-	SetHost(host string)
-	SetKey(key string)
+//// Roboter is the interface implemented by WoChat that can send multiple types of messages.
+//type Roboter interface {
+//	SetHost(host string)
+//	SetKey(token string)
+//
+//	SendText(content string) error
+//	SendMarkdown(text string) error
+//}
 
-	SendText(content string) error
-	SendMarkdown(text string) error
-}
-
-// Robot represents a feishu custom robot that can send messages.
-type Robot struct {
+// WoChat
+type WoChat struct {
 	host  string
-	key   string
+	token string
 	debug bool
 }
 
-func (r *Robot) SetHost(host string) *Robot {
-	r.host = host
+func (r *WoChat) UseHost(url string) notice.Noticer {
+	if utils.IsNotEmpty(url) {
+		r.host = url
+	}
 	return r
 }
 
-func (r *Robot) SetKey(key string) *Robot {
-	r.key = key
+func (r *WoChat) UseToken(token string) notice.Noticer {
+	if utils.IsNotEmpty(token) {
+		r.token = token
+	}
 	return r
 }
 
-func (r *Robot) SendText(content string) error {
-	if !utils.IsNotEmpty(content) {
-		return errors.New("content empty")
+// Deprecated
+func (r *WoChat) UseSecret(secret string) notice.Noticer {
+	return r
+}
+
+func (r *WoChat) SendText(text string) error {
+	if utils.IsEmpty(text) {
+		return vars.ErrParamEmpty
 	}
 
 	params := &textMessage{
 		MsgType: msgTypeText,
 		Text: textParams{
-			Content: content,
-		},
-	}
-
-	return r.send(params)
-}
-
-func (r *Robot) SendMarkdown(text string) error {
-	params := &markdownMessage{
-		MsgType: msgTypeMarkdown,
-		Markdown: markdownParams{
 			Content: text,
 		},
 	}
+
 	return r.send(params)
 }
 
-// NewRobot returns a roboter that can send messages.
-func NewRobot(key string) *Robot {
-	return &Robot{
-		host: "https://qyapi.weixin.qq.com/cgi-bin/webhook/send",
-		key:  key,
+func (r *WoChat) SendMarkdown(body string) error {
+	params := &markdownMessage{
+		MsgType: msgTypeMarkdown,
+		Markdown: markdownParams{
+			Content: body,
+		},
+	}
+	return r.send(params)
+}
+
+// NewWoChat returns a roboter that can send messages.
+func NewWoChat(token string) *WoChat {
+	return &WoChat{
+		host:  vars.HostWochat,
+		token: token,
 	}
 }
 
-func (r *Robot) DebugMode() *Robot {
-	r.debug = true
+func (r *WoChat) SetDebug(debug bool) *WoChat {
+	r.debug = debug
 	return r
 }
