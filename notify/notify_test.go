@@ -1,18 +1,19 @@
 package notify
 
 import (
-	"github.com/leafney/rose-notify/dingtalk"
+	"github.com/leafney/rose-notify/wochat"
 	"testing"
 )
 
 func TestNewNotify(t *testing.T) {
 
-	ner := dingtalk.NewDingTalk("").UseSecret("")
-	//ner := bark.NewBark("").SetDebug(true).SetAutoCopy(true)
-	//ner := slack.NewSlack("")
+	//n := dingtalk.NewDingTalk("").UseSecret("")
+	//n := bark.NewBark("").SetDebug(true).SetAutoCopy(true)
+	//n := slack.NewSlack("")
+	n := wochat.NewWoChat("")
 
-	n := NewNotify(ner)
-	if err := n.SendNotify("Hello World!"); err != nil {
+	ner := NewNotify(n)
+	if err := ner.SendNotify("Hello World!"); err != nil {
 		t.Log(err)
 	}
 }

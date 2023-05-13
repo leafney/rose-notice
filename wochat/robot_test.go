@@ -10,7 +10,7 @@ func TestNewRobot(t *testing.T) {
 	//	SendText("企业微信消息测试发送")
 
 	err := bot.
-		DebugMode().
+		SetDebug(true).
 		SendMarkdown(`## 放假啦
 
 	- <font color="info">粗去玩</font>

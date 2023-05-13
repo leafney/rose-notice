@@ -32,7 +32,7 @@ func (r *WoChat) send(msg interface{}) error {
 
 	webURL := r.host
 	value := url.Values{}
-	value.Set("token", r.token)
+	value.Set("key", r.token)
 
 	req, err := http.NewRequest(http.MethodPost, webURL, bytes.NewReader(m))
 	if err != nil {
