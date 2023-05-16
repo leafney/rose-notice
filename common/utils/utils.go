@@ -44,3 +44,8 @@ func IntToStr(i int) string {
 func Int64ToStr(i int64) string {
 	return strconv.FormatInt(i, 10)
 }
+
+func IsNumber(s string) bool {
+	_, err := strconv.ParseInt(s, 10, 64)
+	return err == nil
+}

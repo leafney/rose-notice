@@ -12,4 +12,6 @@ import "testing"
 
 func TestJoinPath(t *testing.T) {
 	t.Log(JoinPath("https://www.baidu.com", "aaa", "", "ccc"))
+
+	t.Log(IsNumber("-2344566"))
 }

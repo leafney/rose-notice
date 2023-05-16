@@ -11,7 +11,7 @@
 - `SendText(text string)`
 - `SendMsg(title, body string)`
 - `SetDebug(debug bool)`
-- `SetGet()`
+- `SetGet(get bool)`
 - `SetGroup(group string)`
 - `SetCopy(text string)`
 - `SetAutoCopy(copy bool)`
@@ -20,7 +20,7 @@
 - `SetArchive(archive bool)`
 - `SetLevel(level int)`
 - `SetSound(name Sound)`
-- `SetSilence()`
+- `SetSilently(silent bool)`
 - `SetBadge(badge int64)`
 
 

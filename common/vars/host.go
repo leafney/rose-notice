@@ -9,4 +9,5 @@ const (
 	HostSlack    = "https://hooks.slack.com/services"
 	HostWochat   = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send"
 	HostXiZhi    = "https://xizhi.qqoq.net"
+	HostTelegram = "https://api.telegram.org"
 )

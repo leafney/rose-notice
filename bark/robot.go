@@ -51,10 +51,16 @@ func (r *Bark) UseSecret(secret string) notice.Noticer {
 }
 
 func (r *Bark) SendText(text string) error {
+	if utils.IsEmpty(text) {
+		return vars.ErrParamEmpty
+	}
 	return r.send("", text)
 }
 
 func (r *Bark) SendMsg(title, body string) error {
+	if utils.IsEmpty(body) {
+		return vars.ErrParamEmpty
+	}
 	return r.send(title, body)
 }
 
@@ -71,8 +77,8 @@ func (r *Bark) SetDebug(debug bool) *Bark {
 	return r
 }
 
-func (r *Bark) SetGet() *Bark {
-	r.isGet = true
+func (r *Bark) SetGet(get bool) *Bark {
+	r.isGet = get
 	return r
 }
 
@@ -139,9 +145,11 @@ func (r *Bark) SetSound(name Sound) *Bark {
 	return r
 }
 
-// SetSilence mute the sounds
-func (r *Bark) SetSilence() *Bark {
-	r.soundName = SoundSilence
+// SetSilently mute the sounds
+func (r *Bark) SetSilently(silent bool) *Bark {
+	if silent {
+		r.soundName = SoundSilence
+	}
 	return r
 }
 
