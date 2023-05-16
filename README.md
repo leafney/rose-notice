@@ -13,8 +13,8 @@
 - [x] Chanify
 - [x] PushDeer
 - [x] Slack
+- [x] 息知
 - [ ] Telegram
-- [ ] 息知
 
 
 | method   | default host | custom host | need token/key | support secret | support text | support title | support markdown | details |
