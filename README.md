@@ -15,6 +15,7 @@
 - [x] Slack
 - [x] 息知
 - [x] Telegram
+- [ ] Discord
 
 
 | method | default host | custom host | need token/key | support secret | support text | support title | support markdown | details                      |
@@ -59,11 +60,11 @@ func main() {
 
 ```go
 func main() {
-    // use:
+    // use dingtalk :
     n := dingtalk.NewDingTalk("token").UseSecret("secret")
-    // or use:
+    // or use bark :
     n := bark.NewBark("token").SetDebug(true).SetAutoCopy(true)
-    // or use: 
+    // or use slack : 
     n := slack.NewSlack("token")
     
     ner := NewNotify(n)

@@ -13,13 +13,14 @@
 - `UseHost(url string)`
 - `UseToken(token string)`
 - `SendText(text string)`
-- `SendMarkdown(body string)` The supported Markdown syntax is detailed in [Telegram Bot API](https://core.telegram.org/bots/api#markdownv2-style)
+- `SendMarkdown(body string)` -- The supported Markdown syntax is detailed in [Telegram Bot API](https://core.telegram.org/bots/api#markdownv2-style)
 - `SendHtml(body string)`
 - `SetDebug(debug bool)`
 - `SetGet(get bool)`
 - `SetSilently(silent bool)`
 - `SetDisableWebPreview(disable bool)`
 - `SetChatId(chatId string)`
+- `SetProxy(proxy string)` -- http_proxy eg: `http://127.0.0.1:7890`
 
 
 ----

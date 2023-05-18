@@ -13,6 +13,7 @@ type Telegram struct {
 	debug bool
 
 	chatId             string
+	proxy              string
 	isMarkdown         bool
 	isHtml             bool
 	isSilent           bool
@@ -110,6 +111,13 @@ func (r *Telegram) SetDisableWebPreview(disable bool) *Telegram {
 func (r *Telegram) SetChatId(chatId string) *Telegram {
 	if utils.IsNotEmpty(chatId) {
 		r.chatId = chatId
+	}
+	return r
+}
+
+func (r *Telegram) SetProxy(proxy string) *Telegram {
+	if utils.IsNotEmpty(proxy) {
+		r.proxy = proxy
 	}
 	return r
 }

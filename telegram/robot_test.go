@@ -10,6 +10,7 @@ func TestNewTelegram(t *testing.T) {
 	err := bot.
 		SetDebug(true).
 		//SetGet(true).
+		SetProxy("http://127.0.0.1:7890").
 		SetChatId("").
 		SetDisableWebPreview(true).
 		//SetSilently(true).

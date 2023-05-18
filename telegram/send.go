@@ -96,13 +96,19 @@ func (r *Telegram) send(text string) error {
 		fmt.Printf("[debug] url: [%v] \n", req.URL.String())
 	}
 
-	// test set proxy
-	//proxyUrl, _ := url.Parse("http://127.0.0.1:7890")
-	//client := http.Client{
-	//	Transport: &http.Transport{Proxy: http.ProxyURL(proxyUrl)},
-	//}
-
 	client := http.Client{}
+
+	// set proxy
+	if utils.IsNotEmpty(r.proxy) {
+		proxyUrl, err := url.Parse(r.proxy)
+		if err != nil {
+			return err
+		}
+		client = http.Client{
+			Transport: &http.Transport{Proxy: http.ProxyURL(proxyUrl)},
+		}
+	}
+
 	resp, err := client.Do(req)
 	if err != nil {
 		return err
