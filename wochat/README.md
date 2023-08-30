@@ -6,7 +6,6 @@
 
 - `NewWoChat(token string)`
 - `UseToken(token string)`
-- `UseSecret(secret string)`
 - `SendText(text string)`
 - `SendMarkdown(body string)`
 - `SetDebug(debug bool)`

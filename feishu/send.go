@@ -14,15 +14,13 @@ import (
 	"fmt"
 	"github.com/leafney/rose-notify/common/utils"
 	"github.com/leafney/rose-notify/common/vars"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
 type Response struct {
-	Code          int    `json:"code"`
-	Msg           string `json:"msg"`
-	StatusCode    int    `json:"StatusCode"`
-	StatusMessage string `json:"StatusMessage"`
+	Code int    `json:"code"`
+	Msg  string `json:"msg"`
 }
 
 func (r *FeiShu) send(msg interface{}) error {
@@ -64,7 +62,7 @@ func (r *FeiShu) send(msg interface{}) error {
 	}
 	defer resp.Body.Close()
 
-	data, err := ioutil.ReadAll(resp.Body)
+	data, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return err
 	}
@@ -79,7 +77,7 @@ func (r *FeiShu) send(msg interface{}) error {
 		return err
 	}
 
-	if dr.StatusCode != 0 || dr.Code != 0 {
+	if dr.Code != 0 {
 		return fmt.Errorf("feishu notification send failed: [%v]", dr.Msg)
 	}
 

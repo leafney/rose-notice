@@ -16,6 +16,6 @@ func TestNewRobot(t *testing.T) {
 
 	err := bot.
 		SetDebug(true).
-		SendText("消息发送测试")
+		SendText("消息发送测试\n测试")
 	t.Log(err)
 }
