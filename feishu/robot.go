@@ -13,10 +13,11 @@ import (
 	"crypto/sha256"
 	"encoding/base64"
 	"fmt"
+	"time"
+
 	"github.com/leafney/rose-notify/common/notice"
 	"github.com/leafney/rose-notify/common/utils"
 	"github.com/leafney/rose-notify/common/vars"
-	"time"
 )
 
 // FeiShu represents a feishu custom robot that can send messages.
@@ -58,6 +59,33 @@ func (r *FeiShu) SendText(text string) error {
 		MsgType: msgTypeText,
 		Content: textParams{
 			Text: text,
+		},
+	}
+
+	if utils.IsNotEmpty(r.secret) {
+		timestamp := fmt.Sprintf("%d", time.Now().Unix())
+		signMsg := fmt.Sprintf("%s\n%s", timestamp, r.secret)
+		params.Timestamp = timestamp
+		params.Sign = sign(signMsg)
+	}
+
+	return r.send(params)
+}
+
+func (r *FeiShu) SendFullText(title string, elements [][]postElement) error {
+	if utils.IsEmpty(title) || len(elements) == 0 {
+		return vars.ErrParamEmpty
+	}
+
+	params := &postMessage{
+		MsgType: msgTypePost,
+		Content: postParams{
+			Post: postContent{
+				ZhCn: postLanguageContent{
+					Title:   title,
+					Content: elements,
+				},
+			},
 		},
 	}
 

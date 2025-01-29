@@ -21,7 +21,7 @@
 | method | default host | custom host | need token/key | support secret | support text | support title | support markdown | details                      |
 |--------| --- |-------------|--------| --- | --- | --- | --- |------------------------------|
 | DingTalk | ✅ | ❌           | ✅      | ✅ | ✅ | ✅ | ✅ | [README](dingtalk/README.md) |
-| FeiShu | ✅ | ❌           | ✅      | ✅ | ✅ | ❌ | ❌ | [README](feishu/README.md)   |
+| FeiShu | ✅ | ❌           | ✅      | ✅ | ✅ | ❌ | ❌(Text、Link) | [README](feishu/README.md)   |
 | WoChat | ✅ | ❌           | ✅      | ❌ | ✅ | ❌ | ✅ | [README](wochat/README.md)   |
 | Bark   | ✅ | ✅           | ✅      | ❌ | ✅ | ✅ | ❌ | [README](bark/README.md)     |
 | Chanify | ✅ | ✅           | ✅      | ❌ | ✅ | ✅ | ❌ | [README](chanify/README.md)  |
