@@ -9,5 +9,6 @@
 - `UseSecret(secret string)`
 - `SendText(text string)`
 - `SetDebug(debug bool)`
+- `SendFullText(title string, elements [][]postElement)`
 
 ----
